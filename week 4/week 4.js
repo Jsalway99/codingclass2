@@ -1,43 +1,52 @@
 var pick;
-var xImage = 100, yImage = 25;
+var xImage = 200, yImage = 25;
 var speedX, speedY;
 var myFont;
 
 var myTime = 10;
 
 var pick2;
-var xImage2 = 300, yImage2 = 25;
+var xImage2 = 400, yImage2 = 25;
 var speedX2, speedY2;
 
+var pick3;
+var xImage3 = 400, yImage3 = 25;
+var speedX3, speedY3;
 
 function setup() {
-    createCanvas(600, 700);
-    pick = loadImage("image/Jasper.jpg");
+    createCanvas(1000, 1000);
+    pick = loadImage("image/Paimon dimb.png");
 
     pick2 = loadImage("image/Paimon shock.png");
 
-    myFont = loadFont("fonts/EBGaramond-VariableFont_wght.ttf");
+    pick3 = loadImage("image/Final.jpg");
+    
+
+    myFont = loadFont("fonts/EBGaramond-Italic-VariableFont_wght.ttf");
     speedX = random(1, 5);
     speedY = random(1, 5);
 
     speedX2 = random(1, 5);
     speedY2 = random(1, 5);
 
+    speedX3 = random(1, 5);
+    speedY3 = random(1, 5);
+
     setInterval(changeTime, 1000);
 }
 // this runs continuously
 function draw() {
-    background(90, 199, 115);
+    background(90, 150, 115);
     image(pick, xImage, yImage);
 
     xImage += speedX;
     yImage += speedY;
 
-    if (xImage >= width - 200 || xImage <= 0) {
+    if (xImage >= width - 100 || xImage <= 0) {
         speedX *= -1;
     }
 
-    if (yImage >= height - 200 || yImage <= 0) {
+    if (yImage >= height - 100 || yImage <= 0) {
         speedY *= -1;
     }
 
@@ -54,10 +63,23 @@ function draw() {
         speedY2 *= -1;
     }
 
-    fill(800, 252, 169);
+    image(pick3, xImage3, yImage3);
+
+    xImage3 += speedX3;
+    yImage3 += speedY3;
+
+    if (xImage3 >= width - 100 || xImage3 <= 0) {
+        speedX3 *= -1;
+    }
+
+    if (yImage3 >= width - 100 || yImage3 <= 0) {
+        speedY3 *= -1
+    }
+
+    fill(600, 252, 169);
     textSize(24);
     textFont(myFont);
-    text("Jonathon Salway", 400, 300);
+    text("Jonathon Salway", 200, 500);
 
 
 
@@ -68,11 +90,14 @@ function draw() {
 
     // var hasCollided = checkCollision(xImage, yImage, 100, 100, xImage2, yImage2, 100, 100);
 
-    if (checkCollision(xImage, yImage, 100, 100, xImage2, yImage2, 100, 100)) {
+    if (checkCollision(xImage, yImage, 100, 100, xImage2, yImage2, 100, 100, xImage3, yImage3, 100, 100)) {
         speedX *= -1;
         speedX2 *= -1;
+        speedX3 *= -1;
         speedY *= -1;
         speedY2 *= -1;
+        speedY3 *= -1;
+
     }
 
 }
