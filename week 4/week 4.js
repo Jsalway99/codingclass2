@@ -22,7 +22,7 @@ function setup() {
     pick3 = loadImage("image/Final.jpg");
     
 
-    myFont = loadFont("fonts/EBGaramond-Italic-VariableFont_wght.ttf");
+    myFont = loadFont("Fonts/EBGaramond-Italic-VariableFont_wght.ttf");
     speedX = random(1, 5);
     speedY = random(1, 5);
 

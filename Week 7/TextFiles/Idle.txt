@@ -1,0 +1,10 @@
+image\Idle(1).png
+image\Idle(2).png
+image\Idle(3).png
+image\Idle(4).png
+image\Idle(5).png
+image\Idle(6).png
+image\Idle(7).png
+image\Idle(8).png
+image\Idle(9).png
+image\Idle(10).png

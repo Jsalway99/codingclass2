@@ -1,0 +1,10 @@
+image/walk(1).png
+image/walk(2).png
+image/walk(3).png
+image/walk(4).png
+image/walk(5).png
+image/walk(6).png
+image/walk(7).png
+image/walk(8).png
+image/walk(9).png
+image/walk(10).png

@@ -1,0 +1,31 @@
+var ninja;
+var animation = [];
+var ninjaObjects = [];
+
+function preload() {
+//idle animation
+    ninja = new imageclass('image\png\ninja
+    \idle(1).png', 0, 0);
+    ninjaRunObjects[0] = ninja;
+    ninja = new imageclass('image\png\ninja
+    \idle(2).png', 0, 0);
+    ninjaRunObjects[1] = ninja;
+    ninja = new imageclass('image\png\ninja
+    \idle(3).png', 0, 0);
+    ninjaRunObjects[2] = ninja;
+    ninja = new imageclass('image\png\ninja
+    \idle(4).png', 0, 0);
+    ninjaRunObjects[3] = ninja;
+    ninja = new imageclass('image\png\ninja
+    \idle(5).png', 0, 0);
+    ninjaRunObjects[4] = ninja;
+    ninja = new imageclass('image\png\ninja
+    \idle(6).png', 0, 0);
+    ninjaRunObjects[5] = ninja;
+    ninja = new imageclass('image\png\ninja
+    \idle(7).png', 0, 0);
+    ninjaRunObjects[6] = ninja;
+    ninja = new imageclass('image\png\ninja
+    \idle(8).png', 0, 0);
+    ninjaRunObjects[7] = ninja;
+}

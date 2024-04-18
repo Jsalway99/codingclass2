@@ -1,0 +1,35 @@
+var ninja;
+var animation = [];
+var NinjaObjects = [];
+
+
+
+function preload() {
+    //asset folder
+    Ninja = new imageclass("image\ninja\Attack(1).png", 0, 0);
+    NinjaObjects[0] = Ninja;
+    Ninja = new imageclass('image\ninja
+    \Attack(2).png', 0, 0);
+    NinjaObjects[1] = Ninja;
+    Ninja = new imageclass('image\ninja\Attack(3).png', 0, 0);
+    NinjaObjects[2] = Ninja;
+    Ninja = new imageclass('image\png\ninja
+    \Attack(4).png', 0, 0);
+    NinjaObjects[3] = Ninja;
+    Ninja = new imageclass('image\png\ninja
+    \Attack(5).png', 0, 0);
+    NinjaObjects[4] = Ninja;
+    Ninja = new imageclass('image\png\ninja
+    \Attack(6).png', 0, 0);
+    NinjaObjects[5] = Ninja;
+    Ninja = new imageclass('image\png\ninja
+    \Attack(7).png', 0, 0);
+    NinjaObjects[6] = Ninja;
+    Ninja = new imageclass('image\png\ninja
+    \Attack(8).png', 0, 0);
+    NinjaObjects[7] = Ninja;
+    Ninja = new imageclass('image\png\ninja
+    \Attack(9).png', 0, 0);
+    NinjaObjects[8] = Ninja;
+    Ninja = new imageclass('image\png\ninja
+    \Attack(10).png', 0, 0);}
