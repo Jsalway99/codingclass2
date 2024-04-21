@@ -15,7 +15,7 @@ function preload() {
     walkPaths = loadStrings("./image/walk/walk.txt");
     attackPaths = loadStrings("./image/Attack/Attack.txt");
 }
-class Particles{
+class animation {
     constructor (x,y) {
         this.pos = createVector (x,y);
         this.vel = p5.Vector.random2D().multi(random(2,5));
