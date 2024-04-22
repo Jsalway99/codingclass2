@@ -1,4 +1,4 @@
-class imageclass{
+class imageClass{
 
   constructor(myFileName, x, y, w, h) {
 
