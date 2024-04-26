@@ -1,39 +1,10 @@
-var ninja;
-var animation = [];
-var ninjaObjects = [];
-
-
-
-function preload() {
-    //asset folder
-    ninja = new imageclass("image\png\ninja
-    \walk(1).png", 0, 0);
-    ninjaObjects[0] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(2).png', 0, 0);
-    ninjaObjects[1] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(3).png', 0, 0);
-    ninjaObjects[2] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(4).png', 0, 0);
-    ninjaObjects[3] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(5).png', 0, 0);
-    ninjaObjects[4] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(6).png', 0, 0);
-    ninjaObjects[5] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(7).png', 0, 0);
-    ninjaObjects[6] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(8).png', 0, 0);
-    ninjaObjects[7] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(9).png', 0, 0);
-    ninjaObjects[8] = ninja;
-    ninja = new imageclass('image\png\ninja
-    \walk(10).png', 0, 0);
-    ninjaObjects[9] = ninja;
-    }
+images/walk (1).png
+images/walk (2).png
+images/walk (3).png
+images/walk (4).png
+images/walk (5).png
+images/walk (6).png
+images/walk (7).png
+images/walk (8).png
+images/walk (9).png
+images/walk (10).png

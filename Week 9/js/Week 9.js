@@ -1,145 +1,121 @@
-var idlePaths = [];
-var ninjaImage;
-var myAnimation;
-var myWalkAnimation;
-var walkPaths = [];
-var attackPaths = [];
-var immovableObjects = [];
-var collectibles = [];
-var health = 100;
+var xImage = 100, yImage = 50;
+var myFont;
+var myTime = 10;
+var i = 0;
+var flipX = false;
+var idleArray = [];
+var walkArray = [];
+var idleStrings = [];
+var walkStrings = [];
+var myAnimation = [];
+var myWalkAnimation = [];
+
+var myImage;
+
+var objectToEat;
+var objectToDraw;
 var score = 0;
-var particles = [];
-
+var mySound;
+var mysound2;
+var backgroundSound;
 function preload() {
-    idlePaths = loadanimation("./image/Idle/Idle.txt");
-    walkPaths = loadStrings("./image/walk/walk.txt");
-    attackPaths = loadStrings("./image/Attack/Attack.txt");
+    idleStrings = loadStrings("TextFiles/Idle.txt")
+    walkStrings = loadStrings("TextFiles/walk.txt")
+    attackPaths = loadStrings("TextFiles/Attack.txt");
+    soundFormats("mp3")
+    mySound = loadSound("sounds/eating sound effect");//good food
+    mysound2 = loadSound("sounds/assets_gagging");//bad food
+    backgroundSound = loadSound("sounds/02 Royal Days");
 }
-class animation {
-    constructor (x,y) {
-        this.pos = createVector (x,y);
-        this.vel = p5.Vector.random2D().multi(random(2,5));
-        this.lifespan = 255;
-    }
-    update(){
-        this.pos.add(this.vel);
-        this.lifespan -= 5;
-    }
-    display(){
-        fill(255, this.lifespan);
-        noStroke();
-        ellipse(this.pos.x, this.pos.y,10);
-    }
-}
+
 function setup() {
-  createCanvas(800, 600);
-  ninjaImage = (width / 2, height / 2, 30, 30);
-  ninjaImage.img = "image\ninja\Idle(1).png";
-  ninja.shapeColor = color(255, 0, 0);
+    createCanvas(800, 900);
+ myAnimation = new animationImage( 200, 200, 150, 150);
+ myAnimation.myLoadAnimation('idle', idlePaths);
+ myAnimation.myLoadAnimation('walk', walkPaths);
 
-  //immovable objects
-  for (let i = 0; i < 3; i++) {
-    let x = random(width);
-    let y = random(height);
-    let immovable = createSprite(x, y, 50, 50);
-    immovable.shapeColor = color(100);
-    immovableObjects.push(immovable);
-  }
-
-  //collectible items
-  for (let i = 0; i < 5; i++) {
-    let x = random(width);
-    let y = random(height);
-    let collectible = createSprite(x, y, 20, 20);
-    collectible.shapeColor = color(0, 255, 0);
-    collectibles.push(collectible);
-  }
 }
+myFont = loadFont("Fonts/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf");
+setInterval(changeTime, 100);
+setInterval(countDown, 1000);
 
-function draw() {
-  background(220);
+function draw(){
+    background(120);
+    
+    if(Kb.pressing('d'))
+    {
+        if(myAnimation.isColliding(?))
+        {
+            myAnimation.drawAnimation('idle');
+            myAnimation.updatePosition('idle');
 
-  // Player movement
-  if (keyIsDown(LEFT_ARROW) || keyIsDown(65)) {
-    ninja.position.x -= 5;
-  }
-  if (keyIsDown(RIGHT_ARROW) || keyIsDown(68)) {
-    ninja.position.x += 5;
-  }
-  if (keyIsDown(UP_ARROW) || keyIsDown(87)) {
-    ninja.position.y -= 5;
-  }
-  if (keyIsDown(DOWN_ARROW) || keyIsDown(83)) {
-    ninja.position.y += 5;
-  }
-
-  // Prevent ninja from walking through immovable objects
-  for (let immovable of immovableObjects) {
-    ninja.collide(immovable);
-  }
-
-  // Collectibles: increase score if ninja collects them
-  for (let collectible of collectibles) {
-    if (ninja.overlap(collectible)) {
-      collectible.remove();
-      score++;
-    }
-  }
-
-  // Health: decrease if ninja collides with "bad" item
-  if (health > 0) {
-    for (let immovable of immovableObjects) {
-      if (ninja.overlap(immovable)) {
-        health -= 1;
-      }
-    }
-    //Particle system
-    for (let i = particles.length - 1; i >=0; i--){
-        particles[i].update();
-        particles[i].display();
-        if(particles[i].lifespan <= 0){
-          particles.splice(i, 1);
         }
-        //remove obstacle when at zero health
-        for (let immovable of immovableObjects){
-            if (player.overlap(immovable) && health <= 0){
-                immovable.remove();
+        else if(myAnimation.isColliding(?));
+        {
+            ?.remove();
+        }
+    }
+
+        for (var ii = 0; ii < idleArray.length; ii++) {
+        idleArray[ii].updateX(xImage);
+        idleArray[ii].updateFlip(flipX);
+        walkArray[ii].updateX(xImage);
+        walkArray[ii].updateFlip(flipX);
+        idleArray[ii].y = yImage;
+        walkArray[ii].y = yImage;
+
+        if (objectToEat != null) {
+            if (walkArray[ii].checkCollision(objectToEat.x, objectToEat.y, objectToEat.w, objectToEat.h)) {
+                objectToEat = null; 
+                mySound.play();
+                score++;
             }
         }
     }
-  }
-
-  // Display health and score
-  fill(0);
-  textSize(20);
-  text(`Health: ${health}`, 20, 30);
-  text(`Score: ${score}`, 20, 60);
-
-  // Win or lose conditions
-  if (score >= 10) {
-    fill(0, 255, 0);
-    textSize(40);
-    text("You win!", width / 2 - 60, height / 2);
-    noLoop();
-  } else if (health <= 0) {
-    fill(255, 0, 0);
-    textSize(40);
-    text("You lose!", width / 2 - 70, height / 2);
-    noLoop();
-  }
-
-  // Draw sprites
-  drawSprites();
+    objectToDraw = walkArray;
 }
-function keyPressed(){
-    if (key=== ""){
-        for (let immovable of immovableObjects){
-            if (ninja.overlap(immovable)){
-                for (let i = 0; i < 10; i++){
-                    particles.push(new particles(player.position.x, player.position.y));
-                }
-                health -= 5;
-            }
-        }
+    else {
+        objectToDraw = idleArray;     
     }
+
+    objectToDraw[i].draw();
+
+    fill(100, 252, 169);
+    textSize(24);
+    textFont(myFont);
+    text("Score: " + score, 400, 50);
+
+    fill(100, 252, 169);
+    textSize(25);
+    text(myTime + " seconds", 50, 50);
+}
+
+function changeTime() {
+    i++;
+    if (i > idleArray.length - 1) {
+        i = 0;
+    }
+}
+
+function countDown() {
+    myTime--;
+    if (myTime < 0) {
+        myTime = 10;
+        createANewFoodItem();
+    }
+}
+
+function createANewFoodItem()
+{
+  
+    objectToEat = new imageClass("assets/ninja/Kunai.png", random(50, width-100), random(50,height-100), 100, 100);
+}
+
+function mousePressed()
+{
+    playMySound();
+}
+function playMySound()
+{
+    backgroundSound.loop();
 }
