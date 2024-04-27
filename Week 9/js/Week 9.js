@@ -1,3 +1,5 @@
+var imgX = 200;
+var imgY = 200;
 var idlePaths = [];
 var walkPaths = [];
 var AttackPaths = [];
@@ -6,17 +8,13 @@ var myWalkAnimation;
 let PaimonImage;
 let PaimonkImage;
 
-var myImage;
-
-var objectToEat;
-var objectToDraw;
 var mySound;
 var mysound2;
 var backgroundSound;
 function preload() {
-    idlePaths = loadStrings("images/idle/Idle.txt")
-    walkPaths = loadStrings("images/walk/walk.txt")
-    attackPaths = loadStrings("images/Attack/Attack.txt");
+    idlePaths = loadStrings("../images/idle/Idle.txt");
+    walkPaths = loadStrings("../images/walk/walk.txt");
+    AttackPaths = loadStrings("../images/Attack/Attack.txt");
     soundFormats("mp3")
     mySound = loadSound("sounds/eating sound effect");//good food
     mysound2 = loadSound("sounds/assets_gagging");//bad food
@@ -26,7 +24,7 @@ function preload() {
 
 function setup() {
  createCanvas(800,900);
- myAnimation = new animationImage( 200, 200, 150, 150);
+ myAnimation = new animationImage( imgX, imgY, 150, 150);
  myAnimation.myLoadAnimation('idle', idlePaths);
  myAnimation.myLoadAnimation('walk', walkPaths);
  myAnimation.myLoadAnimation('attack', AttackPaths);
@@ -56,7 +54,7 @@ function draw()
             myAnimation.updatePosition('idle');
 
         }
-        else if(myAnimation.isColliding(PaimonkImage));
+        else if(myAnimation.isColliding(PaimonkImage))
         {
             PaimonkImage.remove();
 
@@ -76,7 +74,7 @@ function draw()
     }
     else if (kb.pressing('w'))
     {
-        if(myAnimation.isColliding(PaimonImage));
+        if(myAnimation.isColliding(PaimonImage))
         {
             myAnimation.drawAnimation('idle');
             myAnimation.updatePosition('idle');
@@ -86,7 +84,7 @@ function draw()
     }
     else if(kb.pressing('s'))
     {
-                if(myAnimation.isColliding(PaimonImage));
+                if(myAnimation.isColliding(PaimonImage))
                 {
                     myAnimation.drawAnimation('idle');
                     myAnimation.updatePosition('idle');
@@ -104,7 +102,7 @@ function draw()
 function createANewFoodItem()
 {
   
-    objectToEat = new imageClass("assets/ninja/Kunai.png", random(50, width-100), random(50,height-100), 100, 100);
+    objectToEat = new Sprite("assets/ninja/Kunai.png", random(50, width-100), random(50,height-100), 100, 100);
 }
 
 function mousePressed()

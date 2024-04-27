@@ -24,13 +24,13 @@ class animationImage{
     }
 
     createAnimation() {
-        this.currentAnimation = new Sprite(this.x, this.y);
+        this.currentAnimation =  new Sprite(this.x, this.y);
         this.currentAnimation.rotation = 0;
-        this.currentAnimation.frameDelay=500;
+        this.currentAnimation.frameDelay = 500;
     }
 
     myLoadAnimation(animationType, fileNames) {
-        this.currentAnimation.addAnimation(animationType, fileNames[0], fileNames[fileNames.length - 1]);
+        this.currentAnimation.addAnimation(animationType, fileNames[0], fileNames[fileNames.length - 10]);
         // set the hit box
         this.currentAnimation.width = 200;
         this.currentAnimation.height = 150;
