@@ -1,110 +1,106 @@
-var xImage = 100, yImage = 50;
-var myFont;
-var myTime = 10;
-var i = 0;
-var flipX = false;
-var idleArray = [];
-var walkArray = [];
-var idleStrings = [];
-var walkStrings = [];
-var myAnimation = [];
-var myWalkAnimation = [];
+var idlePaths = [];
+var walkPaths = [];
+var AttackPaths = [];
+var myAnimation;
+var myWalkAnimation;
+let PaimonImage;
+let PaimonkImage;
 
 var myImage;
 
 var objectToEat;
 var objectToDraw;
-var score = 0;
 var mySound;
 var mysound2;
 var backgroundSound;
 function preload() {
-    idleStrings = loadStrings("TextFiles/Idle.txt")
-    walkStrings = loadStrings("TextFiles/walk.txt")
-    attackPaths = loadStrings("TextFiles/Attack.txt");
+    idlePaths = loadStrings("images/idle/Idle.txt")
+    walkPaths = loadStrings("images/walk/walk.txt")
+    attackPaths = loadStrings("images/Attack/Attack.txt");
     soundFormats("mp3")
     mySound = loadSound("sounds/eating sound effect");//good food
     mysound2 = loadSound("sounds/assets_gagging");//bad food
     backgroundSound = loadSound("sounds/02 Royal Days");
+    
 }
 
 function setup() {
-    createCanvas(800, 900);
+ createCanvas(800,900);
  myAnimation = new animationImage( 200, 200, 150, 150);
  myAnimation.myLoadAnimation('idle', idlePaths);
  myAnimation.myLoadAnimation('walk', walkPaths);
+ myAnimation.myLoadAnimation('attack', AttackPaths);
+
+    PaimonImage = new Sprite(450, 200, 150, 150, 'static');
+    PaimonImage.img = "./images/Paimon.png";
+    PaimonImage.scale = 0.05;
+    PaimonImage.diameter = 100;
+
+    PaimonkImage = new Sprite(250, 400 ,100 ,100, 'static');
+    PaimonkImage.img = "./images/Paimonk.png";
+    PaimonkImage.scale = 0.05;
+    PaimonkImage.diameter = 50;
+
 
 }
-myFont = loadFont("Fonts/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf");
-setInterval(changeTime, 100);
-setInterval(countDown, 1000);
-
-function draw(){
+//myFont = loadFont("Fonts/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf");
+function draw()
+{
     background(120);
     
-    if(Kb.pressing('d'))
+    if(kb.pressing('d'))
     {
-        if(myAnimation.isColliding(?))
+        if(myAnimation.isColliding(PaimonImage))
         {
             myAnimation.drawAnimation('idle');
             myAnimation.updatePosition('idle');
 
         }
-        else if(myAnimation.isColliding(?));
+        else if(myAnimation.isColliding(PaimonkImage));
         {
-            ?.remove();
+            PaimonkImage.remove();
+
         }
+        myAnimation.updatePosition('forward');
+        myAnimation.drawAnimation('walk');
     }
-
-        for (var ii = 0; ii < idleArray.length; ii++) {
-        idleArray[ii].updateX(xImage);
-        idleArray[ii].updateFlip(flipX);
-        walkArray[ii].updateX(xImage);
-        walkArray[ii].updateFlip(flipX);
-        idleArray[ii].y = yImage;
-        walkArray[ii].y = yImage;
-
-        if (objectToEat != null) {
-            if (walkArray[ii].checkCollision(objectToEat.x, objectToEat.y, objectToEat.w, objectToEat.h)) {
-                objectToEat = null; 
-                mySound.play();
-                score++;
-            }
+    else if(kb.pressing('a'))
+    {
+        if(myAnimation.isColliding(PaimonImage))
+        {
+            myAnimation.drawAnimation('idle');
+            myAnimation.updatePosition('idle');
         }
+        myAnimation.updatePosition('reverse');
+        myAnimation.drawAnimation('walk');
     }
-    objectToDraw = walkArray;
-}
-    else {
-        objectToDraw = idleArray;     
+    else if (kb.pressing('w'))
+    {
+        if(myAnimation.isColliding(PaimonImage));
+        {
+            myAnimation.drawAnimation('idle');
+            myAnimation.updatePosition('idle');
+        }
+        myAnimation.updatePosition('up');
+        myAnimation.drawAnimation('walk');
     }
-
-    objectToDraw[i].draw();
-
-    fill(100, 252, 169);
-    textSize(24);
-    textFont(myFont);
-    text("Score: " + score, 400, 50);
-
-    fill(100, 252, 169);
-    textSize(25);
-    text(myTime + " seconds", 50, 50);
-}
-
-function changeTime() {
-    i++;
-    if (i > idleArray.length - 1) {
-        i = 0;
+    else if(kb.pressing('s'))
+    {
+                if(myAnimation.isColliding(PaimonImage));
+                {
+                    myAnimation.drawAnimation('idle');
+                    myAnimation.updatePosition('idle');
+                }
+                myAnimation.updatePosition('down');
+                myAnimation.drawAnimation('walk');
     }
-}
-
-function countDown() {
-    myTime--;
-    if (myTime < 0) {
-        myTime = 10;
-        createANewFoodItem();
+    else
+    {
+        myAnimation.drawAnimation('idle');
     }
-}
+    PaimonkImage.debug = mousePressed;
 
+}
 function createANewFoodItem()
 {
   
