@@ -5,6 +5,11 @@ var myAnimation;
 var myWalkAnimation;
 let PaimonImage;
 let PaimonkImage;
+var immovableObjects = [];
+var collectibles = [];
+
+var health = 100;
+var score = 0;
 
 var mySound;
 var mysound2;
@@ -37,6 +42,22 @@ function setup() {
     PaimonkImage.scale = 0.55;
     PaimonkImage.diameter = 50;
 
+     //collectible items
+  for (let i = 0; i < 5; i++) {
+    let x = random(width);
+    let y = random(height);
+    let collectible = createSprite(x, y, 20, 20);
+    collectible.shapeColor = color(0, 255, 0);
+    collectibles.push(collectible);
+  }
+
+  for (let i = 0; i < 3; i++) {
+    let x = random(width);
+    let y = random(height);
+    let immovable = createSprite(x, y, 50, 50);
+    immovable.shapeColor = color(100);
+    immovableObjects.push(immovable);
+  }
 
 }
 //myFont = loadFont("Fonts/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf");
@@ -96,13 +117,43 @@ function draw()
     }
     PaimonkImage.debug = mousePressed;
 
-}
-function createANewFoodItem()
-{
-  
-    objectToEat = new Sprite("assets/ninja/Kunai.png", random(50, width-100), random(50,height-100), 100, 100);
-}
+    for (let immovable of immovableObjects) {
+        PaimonImage.collide(immovable);
+      }
 
+    for (let collectible of collectibles) {
+        if (PaimonImage.overlap(collectible)) {
+          collectible.remove();
+          score++;
+        }
+      }
+
+    if (health > 0) {
+        for (let immovable of immovableObjects) {
+          if (PaimonImage.overlap(immovable)) {
+            health -= 1;
+          }
+        }
+    }
+    fill(0);
+    textSize(20);
+    text(`Health: ${health}`, 20, 30);
+    text(`Score: ${score}`, 20, 60);
+  
+    // Win or lose conditions
+    if (score >= 10) {
+      fill(0, 255, 0);
+      textSize(40);
+      text("You win!", width / 2 - 60, height / 2);
+      noLoop();
+    } else if (health <= 0) {
+      fill(255, 0, 0);
+      textSize(40);
+      text("You lose!", width / 2 - 70, height / 2);
+      noLoop();
+    }
+
+}
 function mousePressed()
 {
     playMySound();

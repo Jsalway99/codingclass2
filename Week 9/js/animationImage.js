@@ -30,7 +30,7 @@ class animationImage{
     }
 
     myLoadAnimation(animationType, fileNames) {
-        this.currentAnimation.addAnimation(animationType, fileNames[0], fileNames[fileNames.length - 1]);
+        this.currentAnimation.addAnimation(animationType, fileNames[0], fileNames[fileNames.length - 3]);
         // set the hit box
         this.currentAnimation.width = 200;
         this.currentAnimation.height = 150;
