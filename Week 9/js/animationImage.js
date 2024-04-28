@@ -19,18 +19,18 @@ class animationImage{
         this.x = x;
     }
 
-    setCurrentFrameCount(currentFrameCount) {
+    setCurrentFrameCount(currentFrameCount)  {
         this.currentFrameCount = currentFrameCount;
     }
 
     createAnimation() {
-        this.currentAnimation =  new Sprite(this.x, this.y);
+        this.currentAnimation = new Sprite(this.x, this.y);
         this.currentAnimation.rotation = 0;
         this.currentAnimation.frameDelay = 500;
     }
 
     myLoadAnimation(animationType, fileNames) {
-        this.currentAnimation.addAnimation(animationType, fileNames[0], fileNames[fileNames.length - 10]);
+        this.currentAnimation.addAnimation(animationType, fileNames[1], fileNames[fileNames.length - 1]);
         // set the hit box
         this.currentAnimation.width = 200;
         this.currentAnimation.height = 150;
