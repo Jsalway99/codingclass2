@@ -4,10 +4,11 @@ var AttackPaths = [];
 var myAnimation;
 var myWalkAnimation;
 let ninja;
-let PaimonImage;
-let PaimonkImage;
+var PaimonImage;
+var PaimonkImage;
 var immovableObjects = [];
 var collectibles = [];
+var particle =[];
 
 var health = 100;
 var score = 0;
@@ -34,15 +35,17 @@ function setup() {
  myAnimation.myLoadAnimation('walk', walkPaths);
  myAnimation.myLoadAnimation('attack', AttackPaths);
 
-    PaimonImage = new Sprite(450, 200, 150, 150, 'static');
+    PaimonImage = createSprite(450, 200, 150, 150, 'static');
     PaimonImage.img = "images/Paimon.png";
     PaimonImage.scale = 0.50;
     PaimonImage.diameter = 100;
 
-    PaimonkImage = new Sprite(250, 400 ,100 ,100, 'static');
+    PaimonkImage = createSprite(250, 400 ,100 ,100, 'static');
     PaimonkImage.img = "images/Paimonk.png";
     PaimonkImage.scale = 0.55;
     PaimonkImage.diameter = 50;
+    
+    
 
      //collectible items
   for (let i = 0; i < 5; i++) {
@@ -63,39 +66,41 @@ function setup() {
 
 }
 //myFont = loadFont("Fonts/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf");
-function draw()
-{
+function draw() {
     background(120);
     
-    if(kb.pressing('d'))
-    {
-        if(myAnimation.isColliding(PaimonImage))
-        {
-            myAnimation.drawAnimation('idle');
-            myAnimation.updatePosition('idle');
-
-        }
-        else if(myAnimation.isColliding(PaimonkImage))
-        {
-            PaimonkImage.remove();
-            points ++;
-
-        }
+    if (kb.pressing('d')) {
         myAnimation.updatePosition('forward');
         myAnimation.drawAnimation('walk');
-    }
-    else if(kb.pressing('a'))
-    {
-        if(myAnimation.isColliding(PaimonImage))
-        {
+        if (PaimonImage != null) {
+        if(myAnimation.isColliding(PaimonImage)) {
             myAnimation.drawAnimation('idle');
             myAnimation.updatePosition('idle');
+            
+
         }
+      }
+    }
+    else if (kb.pressing('a')) {
         myAnimation.updatePosition('reverse');
         myAnimation.drawAnimation('walk');
-    }
-    else if (kb.pressing('w'))
-    {
+    } 
+    else if (kb.pressing('x')) {
+        myAnimation.drawAnimation('attack');
+        if (PaimonImage != null) {
+            if(dist(myAnimation.getCurrentAnimation().position.x, myAnimation.getCurrentAnimation().position.y, PaimonImage.position.x, PaimonImage.position.y) < 200 ){
+                createParticles(PaimonImage.position.x, PaimonImage.position.y);
+                health -=1;
+                if(health <= 0)
+                {
+                    PaimonImage.remove();
+                    PaimonImage = null;
+                }
+                
+            } 
+        }
+    }         
+    else if (kb.pressing('w')) {
         if(myAnimation.isColliding(PaimonImage))
         {
             myAnimation.drawAnimation('idle');
@@ -104,8 +109,7 @@ function draw()
         myAnimation.updatePosition('up');
         myAnimation.drawAnimation('walk');
     }
-    else if(kb.pressing('s'))
-    {
+    else if(kb.pressing('s')) {
                 if(myAnimation.isColliding(PaimonImage))
                 {
                     myAnimation.drawAnimation('idle');
@@ -138,9 +142,9 @@ function draw()
           }
         }
     }
-    fill(359, 0, 100); 
+    fill(469, 0, 100); 
     textSize(24);
-    text("Health " + score, 350, 50);
+    text("Health" + score, 350, 50);
        
     // Win or lose conditions
     if (score >= 10) {
@@ -156,23 +160,22 @@ function draw()
     }
 
 }
+function createParticles(x,y)
+{
+    for (let i = 0; i < 5; i++) {
+        let p = new article(x,y);
+        particle.push(p);
+    }
+    for (let i = particle.length - 1; i >= 0; i--) {
+        particle[i].update();
+        particle[i].show();
+        if (particle[i].finished()) {
+            particle.splice(i, 1);
+        }
+    }
+}
 function mousePressed()
 {
     playMySound();
 }
-function playMySound()
-{
-    backgroundSound.loop();
-}
-function keyPressed(){
-    if (key=== ""){
-        for (let immovable of immovableObjects){
-            if (PaimonImage.overlap(immovable)){
-                for (let i = 0; i < 10; i++){
-                    particles.push(new particles(player.position.x, player.position.y));
-                }
-                health -= 5;
-            }
-        }
-    }
-}
+
