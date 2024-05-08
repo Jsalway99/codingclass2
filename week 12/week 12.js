@@ -50,6 +50,13 @@ function setup() {
     rotateZ(frameCount * 0.01);
     cylinder(80, 150);
     pop(); 
-  
- 
+    // Add a sphere
+    push();
+    fill(12, 35, 19);
+    translate(200, 50, 15);
+    rotateX(frameCount * 0.02); 
+    rotateY(frameCount * 0.01); 
+    rotateZ(frameCount * 0.05);
+    sphere(30); 
+    pop();
   }
