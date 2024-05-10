@@ -3,10 +3,12 @@
     var myTime = 10;
     var i = 0;
     var flipX = false;
-    var idlepath= [];
-    var walkpath= [];
+    var idlepath = [];
+    var walkpath = [];
     var idleArray = [];
     var walkArray = [];
+    var idleStrings = [];
+    var walkStrings = [];
 
     var objectToEat;
     var objectToDraw;
@@ -20,39 +22,26 @@
     var isColliding = false;
 
     function preload() {
-        idlepath= loadStrings("TextFiles\Idle.txt")
-        walkpath= loadStrings("TextFiles\walk.txt")
-        soundFormats("mp3")
-        mySound = loadSound("sounds\eating sound effect");//good food
-        mysound2 = loadSound("sounds\assets_gagging");//bad food
-        backgroundSound = loadSound("sounds\music box");
-  
+        idlepath = loadStrings("TextFiles/Idle.txt")
+        walkpath = loadStrings("TextFiles/walk.txt")
     }
 
     function setup() {
         createCanvas(800, 900);
 
     for(let k = 0; k < idleStrings.length; k++){
-        idleArray.push(new myImage(idleStrings[k], 50 ,100, 640, 472));
+        idleArray.push(new imageclass(idleStrings[k], 50 ,100, 640, 472));
     }
     for (let k = 0; k < walkStrings.length; k++) {  
-        walkArray.push(new myImage(walkStrings[k], 50, 100, 640, 472));
+        walkArray.push(new imageclass(walkStrings[k], 50, 100, 640, 472));
     }
 
-    objectToEat = new myImage("assets\ninja\Kunai.png", 500, 200, 100, 100)
-    myFont = loadFont("Fonts\EB_Garamond\EBGaramond-Italic-VariableFont_wght.ttf");
+    objectToEat = new imageclass("assets/ninja/Kunai.png", 500, 200, 100, 100)
+    myFont = loadFont("Fonts/EB_Garamond/EBGaramond-Italic-VariableFont_wght.ttf");
 
     setInterval(changeTime, 100);
     setInterval(countDown, 1000);
 }
-
-    function backgroundmusic(){
-        backgroundSound().play;
-        backgroundSound().loop;
-        backgroundSound().setVolume(0.3);
-        userStartAudio();
-    }
-
 function draw(){
         background(120);
 
@@ -129,18 +118,4 @@ function draw(){
         }
     }
     
-    function createANewFoodItem()
-    {
-      
-        objectToEat = new myImage("assets\ninja\Kunai.png", random(50, width-100), random(50,height-100), 100, 100);
-    }
-    
-    function mousePressed()
-    {
-        playMySound();
-    }
-    function playMySound()
-    {
-        mySound.loop();
-    }
     
